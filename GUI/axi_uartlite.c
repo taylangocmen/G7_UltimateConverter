@@ -4,11 +4,6 @@
 	This code allows the Microblaze processor to access the AXI UARTLITE
 */
 
-#include "platform.h"
-#include "xil_printf.h"
-#include "xparameters.h"
-#include <stdio.h>
-
 #include "axi_uartlite.h"
 
 char rd_byte_reg(volatile int *reg_address)
@@ -39,33 +34,6 @@ int can_we_read_RX(void)
 	char status = rd_status();
 	
 	return status & RX_VALID_BT;
-}
-
-char rd_RX_byte(void)
-{
-	return rd_byte_reg(RX_FIFO);
-}
-
-int rd_RX_FIFO(char *collected_data, int max_data_length)
-{
-	int i = 0;
-	
-	while(i < max_data_length)
-	{
-		wait_for_FIFO(RX_FIFO);
-
-		char t = rd_RX_byte();
-		if(t != 0xff)
-		{
-			collected_data[i] = t;
-			i++;
-		}
-		else
-		{
-			break;
-		}
-	}
-	return i;
 }
 
 int can_we_write_TX(void)
@@ -117,6 +85,33 @@ void wait_for_FIFO(int fifo_type)
 	return;
 }
 
+char rd_RX_byte(void)
+{
+	return rd_byte_reg(RX_FIFO);
+}
+
+int rd_RX_FIFO(char *collected_data, int max_data_length)
+{
+	int i = 0;
+	
+	while(i < max_data_length)
+	{
+		wait_for_FIFO(RX_FIFO);
+
+		char t = rd_RX_byte();
+		if(t != 0xff)
+		{
+			collected_data[i] = t;
+			i++;
+		}
+		else
+		{
+			break;
+		}
+	}
+	return i;
+}
+
 void wr_TX_byte(char byte_to_send)
 {
 	wait_for_FIFO(TX_FIFO);
@@ -145,4 +140,20 @@ void wr_control_reg(char data)
 	return;
 }
 
+void clear_FIFOs(void)
+{
+	char clear = RST_TX_BT & RST_RX_BT;
+	wr_control_reg(clear);
+}
 
+void clear_RX_FIFO(void)
+{
+	char clear = RST_RX_BT;
+	wr_control_reg(clear);
+}
+
+void clear_TX_FIFO(void)
+{
+	char clear = RST_TX_BT;
+	wr_control_reg(clear);
+}

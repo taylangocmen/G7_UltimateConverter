@@ -61,6 +61,22 @@ char rd_status(void);
 int can_we_read_RX(void);
 
 /**
+	Determines if we can write data to the TX FIFO
+	
+	@params: N/A
+	@returns: 1 if we can read, 0 if we cannot
+*/
+int can_we_write_TX(void);
+
+/**
+	Waits for either FIFO to settle
+
+	@params: fifo_type
+	@returns: N/A
+*/
+void wait_for_FIFO(int fifo_type);
+
+/**
 	Reads one byte from the RX FIFO
 	Note: this just reads the line - it does NOT make sure status is correct
 	
@@ -76,22 +92,6 @@ char rd_RX_byte(void);
 	@returns: number of bytes read
 */
 int rd_RX_FIFO(char *collected_data, int max_data_length);
-
-/**
-	Determines if we can write data to the TX FIFO
-	
-	@params: N/A
-	@returns: 1 if we can read, 0 if we cannot
-*/
-int can_we_write_TX(void);
-
-/**
-	Waits for either FIFO to settle
-
-	@params: fifo_type
-	@returns: N/A
-*/
-void wait_for_FIFO(int fifo_type);
 
 /**
 	Write a byte the TX FIFO register
@@ -116,5 +116,29 @@ int wr_TX_FIFO(char *string_to_send, int string_len);
 	@returns: N/A
 */
 void wr_control_reg(char data);
+
+/**
+	Clears both FIFOs
+
+	@params: N/A
+	@returns: N/A
+*/
+void clear_FIFOs(void);
+
+/**
+	Clears the RX FIFO
+
+	@params: N/A
+	@returns: N/A
+*/
+void clear_RX_FIFO(void);
+
+/**
+	Clears the TX FIFO
+
+	@params: N/A
+	@returns: N/A
+*/
+void clear_TX_FIFO(void);
 
 #endif // AXI_UARTLITE_H_
