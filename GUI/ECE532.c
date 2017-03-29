@@ -144,10 +144,15 @@ int wait_for_ack(void)
 	return ack_received;
 }
 
-//int looking_for_eof(char *buffer)
-//{
-//
-//}
+int looking_for_eof(char *buffer)
+{
+	int eof_reached = 0;
+	if( (buffer[0] == (char)-1) && (buffer[1] == 'A') )
+	{
+		eof_reached = 1;
+	}
+	return eof_reached;
+}
 
 int collect_and_store_from_host_PC(volatile int *mem_addr, char *buffer, int buffer_size)
 {
@@ -156,21 +161,13 @@ int collect_and_store_from_host_PC(volatile int *mem_addr, char *buffer, int buf
 	{
 		rd_RX_FIFO(buffer, buffer_size);
 
-		int i = 0;
-		for( ; i <= buffer_size ; i++)
-		{
-			if(buffer[i] == (char)-1)
-			{
-				eof_reached = 1;
-				break;
-			}
-		}
+		eof_reached = looking_for_eof(buffer);
 
 		if(!eof_reached)
 		{
 			if(!str_null(buffer, buffer_size))
 			{
-				i = 0;
+				int i = 0;
 				while(i < buffer_size)
 				{
 					int val = ((unsigned char)buffer[i] << 0) +

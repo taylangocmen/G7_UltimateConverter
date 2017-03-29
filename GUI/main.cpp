@@ -34,7 +34,7 @@ int main(void)
 	unsigned int packets_sent = 0, valid_packets = 0, display_i = 0;
 
 	ifstream test_text_file;
-	test_text_file.open("C:/Users/Anthony/workspace/FPGA_PC_ECE532/src/smallimage_to_png.png", ios::in|ios::binary|ios::ate);
+	test_text_file.open("C:/Users/Anthony/workspace/FPGA_PC_ECE532/src/smallimage.bmp", ios::in|ios::binary|ios::ate);
 	size_t ttf_size = test_text_file.tellg();
 	test_text_file.seekg(0, ios::beg);
 	char *ttf_buffer = new char [ttf_size+1] ;
@@ -133,6 +133,7 @@ int main(void)
 	test_text_file.close();
 
 	PC_to_FPGA[0] = EOF;
+	PC_to_FPGA[1] = 'A';
 	write_success = FPGA.WriteData(PC_to_FPGA, BUFFER_SIZE);
 	if (write_success == false)
 	{
@@ -311,7 +312,7 @@ int main(void)
 //	cout << Display << endl;
 
 	ofstream fout;
-	fout.open("final.png", ios::binary | ios::out);
+	fout.open("final.bmp", ios::binary | ios::out);
 	fout.write(Display, new_file_size);
 	fout.close();
 
