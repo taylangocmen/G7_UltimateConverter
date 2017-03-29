@@ -102,6 +102,15 @@ int collect_and_store_from_host_PC(volatile int *mem_addr, char *buffer, int buf
 int send_new_file_size_to_host_PC(unsigned int n_file_size, char *buffer, int buffer_size);
 
 /**
+ * Sees if the buffer sent
+ * has the eof string
+ *
+ * @params: buffer
+ * @returns: 0 on failure, 1 on success
+ */
+int looking_for_eof(char *buffer);
+
+/**
  * Sends data from memory to the host PC
  *
  * @params: mem_addr, mem_size, buffer, buffer_size

@@ -17,7 +17,7 @@ using namespace std;
 
 #define BUFFER_SIZE 16
 #define DISPLAY_SIZE 2048
-#define TX_TIME_DELAY 5
+#define TX_TIME_DELAY 100
 #define RX_TIME_DELAY 1100
 
 int main(void)
@@ -34,7 +34,7 @@ int main(void)
 	unsigned int packets_sent = 0, valid_packets = 0, display_i = 0;
 
 	ifstream test_text_file;
-	test_text_file.open("C:/Users/Anthony/workspace/FPGA_PC_ECE532/src/short_test.txt", ios::in|ios::binary|ios::ate);
+	test_text_file.open("C:/Users/Anthony/workspace/FPGA_PC_ECE532/src/smallimage_to_png.png", ios::in|ios::binary|ios::ate);
 	size_t ttf_size = test_text_file.tellg();
 	test_text_file.seekg(0, ios::beg);
 	char *ttf_buffer = new char [ttf_size+1] ;
@@ -92,7 +92,12 @@ int main(void)
 				return -1;
 			}
 			cout << "Sent packet " << packets_sent << endl;
-			cout << "Packet was: " << PC_to_FPGA << endl;
+//			cout << "Packet was: " << PC_to_FPGA << endl;
+			for(int i = 0 ; i < BUFFER_SIZE ; i++)
+			{
+				printf("%02X", (unsigned char)PC_to_FPGA[i]);
+			}
+			cout << endl;
 			strncpy(PC_to_FPGA, blank, BUFFER_SIZE);
 			packets_sent++;
 			Sleep(TX_TIME_DELAY);
@@ -255,24 +260,29 @@ int main(void)
 		int read_success = FPGA.ReadData(FPGA_to_PC, BUFFER_SIZE+1);
 		if (read_success != -1 || read_success != 0)
 		{
-			if(FPGA_to_PC[0] != '\0')
-			{
+//			if(FPGA_to_PC[0] != '\0')
+//			{
 				cout << "Received packet " << valid_packets << endl;
-				cout << "Packet was: " << FPGA_to_PC << endl;
+//				cout << "Packet was: " << FPGA_to_PC << endl;
+				for(int i = 0 ; i < BUFFER_SIZE ; i++)
+				{
+					printf("%02X", (unsigned char)FPGA_to_PC[i]);
+				}
+				cout << endl;
 				int i = 0;
 				for( ; i < BUFFER_SIZE ; i++)
 				{
-					if(FPGA_to_PC[i] != '\0')
-					{
+//					if(FPGA_to_PC[i] != '\0')
+//					{
 //						if(FPGA_to_PC[i] == 'A' && valid_packets == 0)
 //							display_i--;
 //						else
 							Display[display_i + i] = FPGA_to_PC[i];
-					}
-					else
-					{
-						break;
-					}
+//					}
+//					else
+//					{
+//						break;
+//					}
 				}
 				display_i += i;
 
@@ -286,7 +296,7 @@ int main(void)
 				strncpy(PC_to_FPGA, blank, BUFFER_SIZE);
 				valid_packets++;
 				Sleep(4000);
-			}
+//			}
 			strncpy(FPGA_to_PC, blank, BUFFER_SIZE);
 		}
 		else
@@ -298,10 +308,10 @@ int main(void)
 
 	cout << "Sent " << packets_sent << " packets." << endl;
 	cout << "Received " << valid_packets << " valid packets." << endl;
-	cout << Display << endl;
+//	cout << Display << endl;
 
 	ofstream fout;
-	fout.open("bub.txt", ios::binary | ios::out);
+	fout.open("final.png", ios::binary | ios::out);
 	fout.write(Display, new_file_size);
 	fout.close();
 

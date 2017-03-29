@@ -144,6 +144,11 @@ int wait_for_ack(void)
 	return ack_received;
 }
 
+//int looking_for_eof(char *buffer)
+//{
+//
+//}
+
 int collect_and_store_from_host_PC(volatile int *mem_addr, char *buffer, int buffer_size)
 {
 	int file_size = 0, eof_reached = 0;
@@ -168,7 +173,10 @@ int collect_and_store_from_host_PC(volatile int *mem_addr, char *buffer, int buf
 				i = 0;
 				while(i < buffer_size)
 				{
-					int val = (buffer[i] << 0) + (buffer[i+1] << 8) + (buffer[i+2] << 16) + (buffer[i+3] << 24);
+					int val = ((unsigned char)buffer[i] << 0) +
+								((unsigned char)buffer[i+1] << 8) +
+								((unsigned char)buffer[i+2] << 16) +
+								((unsigned char)buffer[i+3] << 24);
 					*mem_addr = val;
 					mem_addr++;
 					i += 4;
