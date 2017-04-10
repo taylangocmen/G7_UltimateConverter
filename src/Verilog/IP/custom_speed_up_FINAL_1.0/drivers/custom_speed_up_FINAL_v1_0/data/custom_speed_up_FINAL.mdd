@@ -1,0 +1,10 @@
+
+
+OPTION psf_version = 2.1;
+
+BEGIN DRIVER custom_speed_up_FINAL
+	OPTION supported_peripherals = (custom_speed_up_FINAL);
+	OPTION copyfiles = all;
+	OPTION VERSION = 1.0;
+	OPTION NAME = custom_speed_up_FINAL;
+END DRIVER

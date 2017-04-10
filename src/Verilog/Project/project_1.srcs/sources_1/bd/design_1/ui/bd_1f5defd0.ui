@@ -1,0 +1,74 @@
+{
+   guistr: "# # String gsaved with Nlview 6.5.12  2016-01-29 bk=1.3547 VDI=39 GEI=35 GUI=JA:1.6
+#  -string -flagsOSRD
+preplace port SD_MOSI -pg 1 -y 40 -defaultsOSRD
+preplace port sys_clock -pg 1 -y 80 -defaultsOSRD
+preplace port SD_CD -pg 1 -y 20 -defaultsOSRD
+preplace port DDR2 -pg 1 -y 690 -defaultsOSRD
+preplace port usb_uart -pg 1 -y 100 -defaultsOSRD
+preplace port SD_SCK -pg 1 -y 60 -defaultsOSRD
+preplace port reset_0 -pg 1 -y 1190 -defaultsOSRD
+preplace port SD_MISO -pg 1 -y 20 -defaultsOSRD
+preplace port reset -pg 1 -y 40 -defaultsOSRD
+preplace portBus SD_SS -pg 1 -y 80 -defaultsOSRD
+preplace inst mig_7series_0 -pg 1 -lvl 4 -y 740 -defaultsOSRD
+preplace inst rst_mig_7series_0_81M -pg 1 -lvl 5 -y 900 -defaultsOSRD
+preplace inst custom_speed_up_FINAL_0 -pg 1 -lvl 3 -y 1020 -defaultsOSRD
+preplace inst microblaze_0_axi_periph -pg 1 -lvl 1 -y 170 -defaultsOSRD
+preplace inst microblaze_0_xlconcat -pg 1 -lvl 3 -y 470 -defaultsOSRD
+preplace inst card_present -pg 1 -lvl 2 -y 350 -defaultsOSRD
+preplace inst microblaze_0_axi_intc -pg 1 -lvl 2 -y 1010 -defaultsOSRD
+preplace inst mdm_1 -pg 1 -lvl 2 -y 650 -defaultsOSRD
+preplace inst microblaze_0 -pg 1 -lvl 2 -y 830 -defaultsOSRD
+preplace inst axi_uartlite_0 -pg 1 -lvl 2 -y 170 -defaultsOSRD
+preplace inst rst_clk_wiz_1_100M -pg 1 -lvl 3 -y 650 -defaultsOSRD
+preplace inst microblaze_0_local_memory -pg 1 -lvl 1 -y 520 -defaultsOSRD
+preplace inst clk_wiz_1 -pg 1 -lvl 2 -y 510 -defaultsOSRD
+preplace inst axi_quad_spi_0 -pg 1 -lvl 2 -y 0 -defaultsOSRD
+preplace netloc mig_7series_0_mmcm_locked 1 4 1 1730
+preplace netloc io1_i_1 1 0 3 NJ -150 NJ -150 NJ
+preplace netloc mig_7series_0_DDR2 1 4 6 NJ 690 NJ 690 NJ 690 NJ 690 NJ 690 NJ
+preplace netloc microblaze_0_axi_periph_M04_AXI 1 1 3 NJ 240 NJ 240 1500
+preplace netloc microblaze_0_intr 1 1 3 490 280 NJ 280 1450
+preplace netloc axi_uartlite_0_interrupt 1 2 1 1090
+preplace netloc axi_quad_spi_0_ss_o 1 2 8 1070 20 NJ 20 NJ 20 NJ 20 NJ 20 NJ 20 NJ 20 NJ
+preplace netloc microblaze_0_Clk 1 0 3 60 -100 450 270 1060
+preplace netloc microblaze_0_interrupt 1 1 2 510 910 960
+preplace netloc microblaze_0_intc_axi 1 1 1 410
+preplace netloc microblaze_0_axi_periph_M03_AXI 1 1 1 440
+preplace netloc microblaze_0_ilmb_1 1 0 3 100 430 NJ 430 970
+preplace netloc sys_clock_1 1 0 2 NJ -80 NJ
+preplace netloc microblaze_0_axi_periph_M05_AXI 1 1 2 NJ 250 1070
+preplace netloc microblaze_0_axi_dp 1 0 3 90 -130 NJ -130 990
+preplace netloc mig_7series_0_ui_clk 1 0 5 70 700 NJ 710 NJ 850 NJ 850 1750
+preplace netloc axi_quad_spi_0_io0_o 1 2 8 N -30 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 NJ -30 NJ
+preplace netloc rst_mig_7series_0_81M_peripheral_aresetn 1 0 6 80 720 NJ 720 NJ 770 1500 840 NJ 810 2080
+preplace netloc rst_clk_wiz_1_100M_interconnect_aresetn 1 0 4 50 750 NJ 750 NJ 760 1460
+preplace netloc rst_clk_wiz_1_100M_bus_struct_reset 1 0 4 100 740 NJ 740 NJ 750 1470
+preplace netloc axi_quad_spi_0_sck_o 1 2 8 N 10 NJ 10 NJ 10 NJ 10 NJ 10 NJ 10 NJ 10 NJ
+preplace netloc microblaze_0_M_AXI_IP 1 0 3 80 -140 NJ -140 1000
+preplace netloc microblaze_0_axi_periph_M01_AXI 1 1 1 400
+preplace netloc rst_clk_wiz_1_100M_peripheral_aresetn 1 0 4 100 -90 420 1110 NJ 1090 1450
+preplace netloc rst_clk_wiz_1_100M_mb_reset 1 1 3 500 1120 NJ 1120 1480
+preplace netloc clk_wiz_1_locked 1 2 1 1100
+preplace netloc card_present_ip2intc_irpt 1 2 1 1080
+preplace netloc axi_uartlite_0_UART 1 2 8 1090 100 NJ 100 NJ 100 NJ 100 NJ 100 NJ 100 NJ 100 NJ
+preplace netloc mig_7series_0_ui_clk_sync_rst 1 4 1 1760
+preplace netloc clk_wiz_1_clk_out2 1 1 2 490 -100 960
+preplace netloc microblaze_0_dlmb_1 1 0 3 90 420 NJ 420 980
+preplace netloc microblaze_0_axi_periph_M02_AXI 1 1 1 430
+preplace netloc card_present_GPIO 1 2 8 1080 30 NJ 30 NJ 30 NJ 30 NJ 30 NJ 30 NJ 30 NJ
+preplace netloc clk_wiz_1_clk_out3 1 2 2 NJ 540 1490
+preplace netloc microblaze_0_debug 1 1 2 500 590 960
+preplace netloc reset_0_1 1 0 4 NJ 730 NJ 730 NJ 740 NJ
+preplace netloc reset_1 1 0 3 NJ -110 NJ -110 1110
+preplace netloc mdm_1_debug_sys_rst 1 2 1 1090
+preplace netloc axi_quad_spi_0_ip2intc_irpt 1 2 1 1100
+levelinfo -pg 1 0 250 740 1290 1620 1920 2100 2150 2200 2250 2320 -top -160 -bot 1210
+",
+}
+{
+   da_axi4_cnt: "5",
+   da_board_cnt: "6",
+   da_mb_cnt: "1",
+}
