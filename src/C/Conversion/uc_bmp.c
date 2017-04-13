@@ -10,37 +10,14 @@
 void read_bmp(UC_IMAGE* image) {
     unsigned i, j;
 
-//    for(i = 0; i < image->fSize; i++){
-//    	printf("%02X", image->fBuffer[i]);
-//    }
-
     printf("recieved image size: %u\n", image->fSize);
 
     i = 0;
-//	printf("%02X", image->fBuffer[0]);
-//	printf("%02X\n", image->fBuffer[1]);
-//
-//	for (i = 2; i < image->fSize; i += 4) {
-//		//		printf("%u %02X   ", i, image->fBuffer[i]);
-//		//		printf("%u %02X   ", i+1, image->fBuffer[i + 1]);
-//		//		printf("%u %02X   ", i+2, image->fBuffer[i + 2]);
-//		//		printf("%u %02X   ", i+3, image->fBuffer[i + 3]);
-//		//		printf("\n");
-//
-//		printf("%02X", image->fBuffer[i]);
-//		printf("%02X", image->fBuffer[i + 1]);
-//		printf("%02X", image->fBuffer[i + 2]);
-//		printf("%02X", image->fBuffer[i + 3]);
-//		printf("\n");
-//	}
 
     unsigned signature = get_bytes(0, 2, image->fBuffer);
     printf("signature: %08X\n", signature);
     if (signature != BMP_BM)
         abort_("File was to be a BMP but was not.");
-
-
-
 
     unsigned offsetPxArr = get_bytes(14, 10, image->fBuffer);
     unsigned dibHSize = get_bytes(18, 14, image->fBuffer);
@@ -74,19 +51,9 @@ void read_bmp(UC_IMAGE* image) {
     if (bitsPPx == BMP_1BPP || bitsPPx == BMP_2BPP || bitsPPx == BMP_4BPP || bitsPPx == BMP_8BPP) {
         assert(colorsInTable == to_power(2, bitsPPx));
         printf("colors in table is true\n");
-////        colorTable = (unsigned char**) malloc(colorsInTable * sizeof (unsigned char*));
-//
-//        printf("colors in table malloc initial is successful\n");
-//
-//        for (i = 0; i < colorsInTable; i++){
-//            colorTable[i] = (unsigned char *) malloc(4 * sizeof (unsigned char));
-//            printf("colors in table malloc %u is successful\n", i);
-//        }
-//        printf("colors in table malloc loop is successful\n");
 
         unsigned index = BMP_HEADER_SIZE + dibHSize;
         for (j = 0; j < colorsInTable; index += 4, j++) {
-            // Not sure about this colors
             colorTable[j][2] = BOFF0(get_bytes(index + 1, index + 0, image->fBuffer)); // blue
             colorTable[j][1] = BOFF0(get_bytes(index + 2, index + 1, image->fBuffer)); // green
             colorTable[j][0] = BOFF0(get_bytes(index + 3, index + 2, image->fBuffer)); // red
@@ -134,10 +101,6 @@ void read_bmp(UC_IMAGE* image) {
             assert(colIndex == image->pxWidth);
         }
         assert(rowIndex == 4294967295);
-//        for(i = 0; i < colorsInTable; i++){
-//        	free(colorTable[i]);
-//        }
-//        free(colorTable);
         printf("read_bmp successful!\n");
         return;
     }
@@ -270,12 +233,6 @@ unsigned write_bmp(UC_IMAGE* image, volatile int *toAddr){
             bitmapStream[i] = 0;
     }
     
-//    FILE *file;
-//    file = fopen(fileName, "wb");
-//    for(i = 0; i < fileSize; i++)
-//        fputc(bitmapStream[i], file);
-//    fclose(file);
-//    free(bitmapStream);
     return fileSize;
 }
 
