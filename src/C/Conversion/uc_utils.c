@@ -70,11 +70,3 @@ void print_unsigned_bytes(unsigned x, unsigned l){
     if(l > 2) printf("2(%8u):  %02X\n", x, BOFF2(x));
     if(l > 3) printf("3(%8u):  %02X\n", x, BOFF3(x));
 }
-
-unsigned round_(float i){
-    unsigned half = 0;
-    float j = i;
-    while(j >= 1) j -= 1.0;
-    if(j >= 0.5) half = 1;
-    return ((unsigned)i + half);
-}
