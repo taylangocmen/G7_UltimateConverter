@@ -24,6 +24,4 @@ unsigned get_bytes(unsigned i, unsigned j, unsigned char* buffer);
 
 void print_unsigned_bytes(unsigned x, unsigned l);
 
-unsigned round_(float i);
-
 #endif /* UC_UTILS_H */
