@@ -67,12 +67,8 @@ unsigned write_png(UC_IMAGE* image, volatile int *toAddr) {
     unsigned char* writebuffer = (unsigned char*) toAddr;
 
     if (pxFormat == 3){
-//        err = lodepng_encode24_file(fileName, rawImage, pxWidth, pxHeight);
-//        err = lodepng_encode_file(fileName, rawImage, pxWidth, pxHeight, LCT_RGB, 8));
         err = lodepng_encode_memory(&buffer, &buffersize, rawImage, pxWidth, pxHeight, LCT_RGB, 8);
     }
-//    else if (pxFormat == 4)
-//        err = lodepng_encode32_file(fileName, rawImage, pxWidth, pxHeight);
     if (err){
         printf("Could not encode png file pxFormat: %u, err: %u\n", pxFormat, err);
     }
