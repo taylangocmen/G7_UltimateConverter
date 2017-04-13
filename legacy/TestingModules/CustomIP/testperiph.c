@@ -18,12 +18,6 @@
 #include "ff.h"
 #include "string.h"
 
-#include "axi_uartlite.h"
-#include "ECE532.h"
-
-#define BUFFER_SIZE 16
-#define ADDR_DDR2 0x81000000
-
 // Function Declarations
 
 int SD_file_size = 0;
@@ -105,13 +99,10 @@ int main() {
 
     //LowLevelTest();
 
-    HighLevelTest();
+    //HighLevelTest();
 
-    //test_ip();
+    test_ip();
 
-
-    //while(1);
-//    test_ip();
     cleanup_platform();
     return 0;
 }
@@ -226,92 +217,51 @@ static void HighLevelTest() {
 
 	f_close(&FHandle);
 
-	volatile int *memory = ADDR_DDR2;
-	int i = 0;
-	while(i < size)
-	{
-		int val = ((unsigned char)Buff[i] << 0) +
-					((unsigned char)Buff[i+1] << 8) +
-					((unsigned char)Buff[i+2] << 16) +
-					((unsigned char)Buff[i+3] << 24);
-		*memory = val;
-		memory++;
-		i += 4;
-
-		xil_printf("Val being stored is %04X \n", val);
-	}
-
-	i = 0;
-	while(i < size)
-	{
-		char colour_from_buff[6+1] = {0};
-		colour_from_buff[0] = Buff[i];
-		colour_from_buff[1] = Buff[i+1];
-		colour_from_buff[2] = Buff[i+2];
-		colour_from_buff[3] = Buff[i+3];
-		colour_from_buff[4] = Buff[i+4];
-		colour_from_buff[5] = Buff[i+5];
-
-		int val = char_2_int_hex(colour_from_buff);
-		xil_printf("CFB: %s \n",colour_from_buff);
-		xil_printf("NEW: %06X \n",val);
-		test_ip((unsigned)val);
-		i += 6;
-	}
-
-
 	SD_file_size = size;
-//	send_ack();
 
-
-//	int nfs_check = send_new_file_size_to_host_PC(size, buffer, BUFFER_SIZE);
-//	if(nfs_check > 0)
-//	{
-//		send_from_mem_to_host_PC(memory, size, buffer, BUFFER_SIZE);
-//	}
 //END READ
 
-////MAKE NEW FILE AND WRITE TO IT
-//	if (f_open(&FHandle, "tay_test.txt", FA_WRITE | FA_CREATE_ALWAYS) != FR_OK) {
-//    	xil_printf("Failed to open bar.txt.\n\r");
-//		return;
-//	}
-////WRITE THIS DATA
-//	if (f_write(&FHandle, "HellA!\r\n", 8, &BytesWritten) != FR_OK) {
-//    	xil_printf("Failed to write to bar.txt.\n\r");
-//		return;
-//	}
-//
-//	if (BytesWritten != 8) {
-//		xil_printf("Wrote incorrect number of bytes to bar.txt!\n\r");
-//		return;
-//	}
-//
-//	f_close(&FHandle);
-////FINISH WRITING
-//
-////START READING
-//	if (f_open(&FHandle, "tay_test.txt", FA_READ) != FR_OK) {
-//		xil_printf("Failed to open foo.txt.\n\r");
-//		return;
-//	}
-//	//int size;
-////GET SIZE OF FILE
-//	size = f_size(&FHandle);
-//	xil_printf("size: %d \n",size);
-//	while (!f_eof(&FHandle)) {
-//		if (f_gets(Buff, size, &FHandle) == NULL) {
-//			xil_printf("Failed to read a line from bar.txt.\r\n");
-//			return;
-//		}
-//
-//		xil_printf("%s", Buff);
-//	}
-//
-//	f_close(&FHandle);
-////FINISH READING
+//MAKE NEW FILE AND WRITE TO IT
+	if (f_open(&FHandle, "tay_test.txt", FA_WRITE | FA_CREATE_ALWAYS) != FR_OK) {
+    	xil_printf("Failed to open bar.txt.\n\r");
+		return;
+	}
+//WRITE THIS DATA
+	if (f_write(&FHandle, "HellA!\r\n", 8, &BytesWritten) != FR_OK) {
+    	xil_printf("Failed to write to bar.txt.\n\r");
+		return;
+	}
 
-	//xil_printf("Test Successful!\n\r");
+	if (BytesWritten != 8) {
+		xil_printf("Wrote incorrect number of bytes to bar.txt!\n\r");
+		return;
+	}
+
+	f_close(&FHandle);
+//FINISH WRITING
+
+//START READING
+	if (f_open(&FHandle, "tay_test.txt", FA_READ) != FR_OK) {
+		xil_printf("Failed to open foo.txt.\n\r");
+		return;
+	}
+	int size;
+//GET SIZE OF FILE
+	size = f_size(&FHandle);
+	xil_printf("size: %d \n",size);
+	while (!f_eof(&FHandle)) {
+		if (f_gets(Buff, size, &FHandle) == NULL) {
+			xil_printf("Failed to read a line from bar.txt.\r\n");
+			return;
+		}
+
+		xil_printf("%s", Buff);
+	}
+
+	f_close(&FHandle);
+//FINISH READING
+
+	xil_printf("Test Successful!\n\r");
 }
 FRESULT scan_files (
     char* path        /* Start node to be scanned (***also used as work area***) */
@@ -364,7 +314,7 @@ void test_ip(unsigned value){
    }
    unsigned index = *(IP+5);
    xil_printf("index = %u \n",index);
-	/*for(i = 0; i < 4; i++) {
+	for(i = 0; i < 4; i++) {
 	   //unsigned color_table_index = i;
 	   xil_printf("VALUE: %d \n", *(MEM_SD_STORE+i));
 	   *(IP) = *(MEM_SD_STORE+i);
@@ -385,6 +335,5 @@ void test_ip(unsigned value){
 	   }
 	   unsigned index = *(IP+5);
 	   xil_printf("index = %u \n",index);
-	}*/
-//	send_ack();
+	}
 }

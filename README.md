@@ -15,6 +15,7 @@ hostPC - Code that was running on the Host PC side
 legacy - Old code that is no longer in use. This includes old main files and Verilog IPs attempted.
 	SPIforSD - Our original attempt to make a SD Card connection
 	TestingModules - Contains old main files that tested our separate components before integration
+		CustomIP
 		Conversion
 		SDCard
 		UART
