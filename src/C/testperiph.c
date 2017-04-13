@@ -65,8 +65,6 @@ int SetupSdGpio() {
 
 	XGpio_SelfTest(&SdGpio);
 
-	// TODO: add Interrupt configuration code.
-
 	return XST_SUCCESS;
 }
 
@@ -86,8 +84,6 @@ int main() {
 
     print("Platform Loaded.\n\r");
 
-//    wait_for_ack();
-
     xil_printf("Let's begin\n");
 
     // Check for presence of SD card.
@@ -101,17 +97,8 @@ int main() {
 
     xil_printf("SD card inserted.\n\r");
 
-	//MB_Sleep(500);
-
-    //LowLevelTest();
-
     HighLevelTest();
 
-    //test_ip();
-
-
-    //while(1);
-//    test_ip();
     cleanup_platform();
     return 0;
 }
@@ -261,58 +248,8 @@ static void HighLevelTest() {
 
 
 	SD_file_size = size;
-//	send_ack();
-
-
-//	int nfs_check = send_new_file_size_to_host_PC(size, buffer, BUFFER_SIZE);
-//	if(nfs_check > 0)
-//	{
-//		send_from_mem_to_host_PC(memory, size, buffer, BUFFER_SIZE);
-//	}
-//END READ
-
-////MAKE NEW FILE AND WRITE TO IT
-//	if (f_open(&FHandle, "tay_test.txt", FA_WRITE | FA_CREATE_ALWAYS) != FR_OK) {
-//    	xil_printf("Failed to open bar.txt.\n\r");
-//		return;
-//	}
-////WRITE THIS DATA
-//	if (f_write(&FHandle, "HellA!\r\n", 8, &BytesWritten) != FR_OK) {
-//    	xil_printf("Failed to write to bar.txt.\n\r");
-//		return;
-//	}
-//
-//	if (BytesWritten != 8) {
-//		xil_printf("Wrote incorrect number of bytes to bar.txt!\n\r");
-//		return;
-//	}
-//
-//	f_close(&FHandle);
-////FINISH WRITING
-//
-////START READING
-//	if (f_open(&FHandle, "tay_test.txt", FA_READ) != FR_OK) {
-//		xil_printf("Failed to open foo.txt.\n\r");
-//		return;
-//	}
-//	//int size;
-////GET SIZE OF FILE
-//	size = f_size(&FHandle);
-//	xil_printf("size: %d \n",size);
-//	while (!f_eof(&FHandle)) {
-//		if (f_gets(Buff, size, &FHandle) == NULL) {
-//			xil_printf("Failed to read a line from bar.txt.\r\n");
-//			return;
-//		}
-//
-//		xil_printf("%s", Buff);
-//	}
-//
-//	f_close(&FHandle);
-////FINISH READING
-
-	//xil_printf("Test Successful!\n\r");
 }
+
 FRESULT scan_files (
     char* path        /* Start node to be scanned (***also used as work area***) */
 )
@@ -354,9 +291,6 @@ void test_ip(unsigned value){
    unsigned color = *(IP+2);
    xil_printf("color = %08X \n",color);
 
-
-
-
    //write color
    *(IP+3) = color; //r=105, g = 167, b = 210
    while(*(IP+4)==0){
@@ -364,27 +298,4 @@ void test_ip(unsigned value){
    }
    unsigned index = *(IP+5);
    xil_printf("index = %u \n",index);
-	/*for(i = 0; i < 4; i++) {
-	   //unsigned color_table_index = i;
-	   xil_printf("VALUE: %d \n", *(MEM_SD_STORE+i));
-	   *(IP) = *(MEM_SD_STORE+i);
-
-	   while(*(IP+1) == 0){
-		   xil_printf("waiting bmp256_color_table_index_to_color: %u \n", *(IP+1));
-	   }
-	   unsigned color = *(IP+2);
-	   xil_printf("color = %08X \n",color);
-
-
-
-
-	   //write color
-	   *(IP+3) = color; //r=105, g = 167, b = 210
-	   while(*(IP+4)==0){
-		   xil_printf("waiting bmp256_color_table_color_to_index: %u \n", *(IP+4));
-	   }
-	   unsigned index = *(IP+5);
-	   xil_printf("index = %u \n",index);
-	}*/
-//	send_ack();
 }
