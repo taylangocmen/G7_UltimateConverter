@@ -10,8 +10,6 @@ typedef struct UC_IMAGE {
     unsigned pxWidth;
     unsigned pxFormat;
 
-//    FILE* file;
-//    char* fName;
     unsigned char* fBuffer;
     size_t fSize;
     unsigned fFormat;
