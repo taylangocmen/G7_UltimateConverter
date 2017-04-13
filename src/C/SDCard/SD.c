@@ -42,10 +42,7 @@ int SetupSdGpio(void)
 	// Set the direction for all signals to be inputs.
 	XGpio_SetDataDirection(&SdGpio, 1, SD_GPIO_CARD_PRESENT_MASK);
 	
-	XGpio_SelfTest(&SdGpio);
-	
-	// TODO: add Interrupt configuration code.
-	
+	XGpio_SelfTest(&SdGpio);	
 	return XST_SUCCESS;
 }
 
@@ -181,48 +178,6 @@ static void HighLevelTest(void) {
 	}
 	
 	f_close(&FHandle);
-/*
-	if (f_open(&FHandle, "bar2.txt", FA_WRITE | FA_CREATE_ALWAYS) != FR_OK) 
-	{
-    	xil_printf("Failed to open bar.txt.\n\r");
-		return;
-	}
-
-	if (f_write(&FHandle, "HellA!\r\n", 8, &BytesWritten) != FR_OK) 
-	{
-    	xil_printf("Failed to write to bar.txt.\n\r");
-		return;
-	}
-
-	if (BytesWritten != 8) 
-	{
-		xil_printf("Wrote incorrect number of bytes to bar.txt!\n\r");
-		return;
-	}
-
-	f_close(&FHandle);
-	if (f_open(&FHandle, "bar2.txt", FA_READ) != FR_OK) 
-	{
-		xil_printf("Failed to open foo.txt.\n\r");
-		return;
-	}
-	int size;
-	size = f_size(&FHandle);
-	xil_printf("size: %d \n",size);
-	while (!f_eof(&FHandle)) 
-	{
-		if (f_gets(Buff, size, &FHandle) == NULL) 
-		{
-			xil_printf("Failed to read a line from bar.txt.\r\n");
-			return;
-		}
-	
-		xil_printf("%s", Buff);
-	}
-	
-	f_close(&FHandle);
-	*/
-	
 	xil_printf("Test Successful!\n\r");
 }
 
@@ -286,9 +241,8 @@ int main(void)
 	
     xil_printf("SD card inserted.\n\r");
 	
-	MB_Sleep(500);
+    MB_Sleep(500);
 	
-    //LowLevelTest();
     HighLevelTest();
 	
     cleanup_platform();
